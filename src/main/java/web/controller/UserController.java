@@ -34,4 +34,23 @@ public class UserController {
         userService.saveUser(user);
         return "redirect:/";
     }
+
+//    @GetMapping("/update-user")
+//    public String updateUser(@RequestParam("userId") int id, Model model) {
+//        User user = userService.getUser(id);
+//        model.addAttribute("user", user);
+//        return "user_info";
+//    }
+
+    @GetMapping("/update-user/{id}")
+    public String updateUser(@PathVariable("id") int id, Model model) {
+        User user = userService.getUser(id);
+        model.addAttribute("user",user);
+        return "/update-user";
+    }
+    @PostMapping("/update-user")
+    public String updateUser(@ModelAttribute("user") User user) {
+        userService.saveUser(user);
+        return "redirect:/";
+    }
 }
