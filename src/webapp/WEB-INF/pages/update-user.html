@@ -2,12 +2,11 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>New person</title>
+    <title>Update person</title>
 </head>
 <body>
 
 <form th:action="@{/save-user}" th:object="${user}" method="POST">
-
     <label for="id">ID</label>
     <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
     <br/>
@@ -15,7 +14,7 @@
     <input type="text" th:field="*{name}" id="name"/>
     <br/><br/>
     <label for="name">Surname: </label>
-    <input type="text" maxlength="100" th:field="*{surname}" id="surname"/>
+    <input type="text" th:field="*{surname}" id="surname"/>
     <br/><br/>
     <label for="name">Age: </label>
     <input type="text" th:field="*{age}" id="age"/>

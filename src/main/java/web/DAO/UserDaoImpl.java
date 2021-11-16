@@ -2,9 +2,9 @@ package web.DAO;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import web.Model.User;
 
 import java.util.List;
@@ -34,5 +34,14 @@ public class UserDaoImpl implements UserDAO{
         Session session = sessionFactory.getCurrentSession();
         User user = session.get(User.class, id);
         return user;
+    }
+
+    @Override
+    public void deleteUser(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<User> query = session.createQuery("delete from User " +
+                " where id =:userId");
+        query.setParameter("userId", id);
+        query.executeUpdate();
     }
 }
