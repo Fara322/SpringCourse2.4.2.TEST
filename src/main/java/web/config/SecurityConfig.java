@@ -2,15 +2,12 @@ package web.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.util.matcher.AndRequestMatcher;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import web.Model.Role;
 
 @Configuration
@@ -36,11 +33,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/add-new-user").hasRole(Role.ADMIN.name())
-                .antMatchers("/save-user/**").hasRole(Role.ADMIN.name())
-                .antMatchers("/update-user/**").hasRole(Role.ADMIN.name())
-                .antMatchers("/user-delete/**").hasRole(Role.ADMIN.name())
+                .antMatchers("/","/users").hasAnyRole("USER","ADMIN")
+                .antMatchers("/add-new-user").hasRole("ADMIN")
+                .antMatchers("/save-user/**").hasRole("ADMIN")
+                .antMatchers("/update-user/**").hasRole("ADMIN")
+                .antMatchers("/user-delete/**").hasRole("ADMIN")
                 .and()
                 .formLogin()
                 .permitAll();
@@ -57,20 +54,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     // Новый способ добавления юзеров в спринг секьюрити
 
-    @Bean
-    @Override
-    protected UserDetailsService userDetailsService() {
-        return new InMemoryUserDetailsManager(
-                User.builder()
-                        .username("admin")
-                        .password("{noop}admin")
-                        .roles(Role.ADMIN.name())
-                        .build(),
-                User.builder()
-                        .username("user")
-                        .password("{noop}user")
-                        .roles(Role.USER.name())
-                        .build()
-        );
-    }
+//    @Bean
+//    @Override
+//    protected UserDetailsService userDetailsService() {
+//        return new InMemoryUserDetailsManager(
+//                User.builder()
+//                        .username("admin")
+//                        .password("{noop}admin")
+//                        .roles(Role.ADMIN.name())
+//                        .build(),
+//                User.builder()
+//                        .username("user")
+//                        .password("{noop}user")
+//                        .roles(Role.USER.name())
+//                        .build()
+//        );
+//    }
 }

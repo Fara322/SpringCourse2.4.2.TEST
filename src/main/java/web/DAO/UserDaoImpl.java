@@ -38,4 +38,12 @@ public class UserDaoImpl implements UserDAO{
                 .setParameter("userId", id)
                 .executeUpdate();
     }
+
+    @Override
+    public User getUserByName(String name) {
+        return entityManager.createQuery(
+                        "SELECT user FROM User user WHERE user.name =:name", User.class)
+                .setParameter("name", name)
+                .getSingleResult();
+    }
 }

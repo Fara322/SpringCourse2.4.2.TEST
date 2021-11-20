@@ -10,27 +10,20 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Surname</th>
-                <th>Age</th>
+                <th>Password</th>
+                <th>Roles</th>
                 <th>Operations</th>
             </tr>
 
             <tr th:each="user : ${allUsersPage}">
-<!--             <c:url var="updateButton" value="/update-user"> -->
-<!--                 <c:param name="userId" value="${user.id}"/> -->
-<!--             </c:url> -->
                 <td th:utext="${user.id}">ID</td>
                 <td th:utext="${user.Name}">Name</td>
-                <td th:utext="${user.Surname}">Surname</td>
-                <td th:utext="${user.Age}">Age</td>
+                <td th:utext="${user.Password}">Surname</td>
+                <td th:utext="${user.Roles}">Age</td>
                 <td><a th:href="@{update-user/{id}(id=${user.id})}">Update</a>
                     <a th:href="@{user-delete/{id}(id=${user.id})}">Delete</a>
                 </td>
-<!--                 <td> -->
 
-<!--                 <input type="button" onclick="window.location.href = '${updateButton}'" value="Update"/> -->
-
-<!--                 </td> -->
             </tr>
         </table>
 
@@ -39,9 +32,6 @@
             onclick="window.location.href = 'add-new-user'"/>
 
             <br><br><br>
-<!--                 <form action="/logout" method="POST"> -->
-<!--                     <button type="submit">Logout</button> -->
-<!--                 </form> -->
 
                  <input type="button" value="Logout"
                      onclick="window.location.href = 'login'"/>
